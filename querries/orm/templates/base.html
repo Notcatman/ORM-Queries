@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} WAAAA {% endblock %}</title>
+    <link rel="icon" href="/static/images/aaaa.png">
+    <style>
+        body {
+            background: linear-gradient(90deg, hsl(281, 30%, 78%), hsl(216, 49%, 71%));
+            margin: 0;
+            font-family:hello;
+        }
+
+        @font-face {
+            font-family: hello;
+            src: url(/static/fonts/SemiBold.otf);
+        }
+        
+        *::selection {
+            background: none;
+            color: hsl(334, 84%, 66%);
+        }
+
+        @keyframes showAnimation{
+            from{
+                opacity: 0.3;
+                transform: translateY(-500px);
+            }to{
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes opacity{
+            from{
+                opacity: 0;
+                transform: translateX(-500px);
+            }to{
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+        
+        .navbar {
+            background-color: hsla(242, 32%, 23%, 0.485);
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 2px 5px hsla(0, 0%, 0%, 0.1);
+
+            animation: showAnimation 1.3s ease-out;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            color: hsl(0, 0%, 100%);
+            font-size: 65px;
+            text-shadow: 2px 2px 2px hsla(0, 0%, 0%, 0.695);
+        }
+
+        .navbar img {
+            height: 106px;
+            vertical-align: middle;
+        }
+
+        .all {
+            text-align: center;
+            font-size: x-large;
+            font-weight: 100;
+            color: hsl(0, 3%, 7%);
+            text-shadow: 1px 1px 1px hsl(0, 0%, 73%);
+            transition: 0.8s ease;
+
+            animation: opacity 1.3s ease-out;
+        }
+
+        .all hr {
+            width: 90%;
+            height: 3px;
+            background-color: hsl(0, 0%, 37%);
+            border: hsl(0, 0%, 46%);
+        }
+
+        .all:hover {
+            cursor: context-menu;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <h1>Hewwo</h1>
+        <img src="/static/images/waa.png">
+    </nav>
+
+    {% block content %}
+
+    <div class="all">
+        <h2>Movie with exact title 'IT'</h2>
+        {% for movie in movie_exact %}
+            <div>
+                <p>Title: {{ movie.title }}</p>
+                <p>Genre: {{ movie.genre }}</p>
+                <p>Duration: {{ movie.duration_minutes }} minutes</p>
+                <p>Rating: {{ movie.rating }}</p>
+                <hr>
+            </div>
+        {% endfor %}
+
+        <h2>Surname of the viewer containing "star"</h2>
+        {% for nam in viewers_contains_lastname %}
+            <div>
+                <p>Name: {{ nam.name }}</p>
+                <p>Surname: {{ nam.surname }}</p>
+                <p>Email: {{ nam.email }}</p>
+                <hr>
+            </div>
+        {% endfor %}
+
+        <h2>Movies whose genre start with "psychological"</h2>
+        {% for moo in genre_starts %}
+            <div>
+                <p>Title: {{ moo.title }}</p>
+                <hr style="width: 30%; height: 2px; background-color: hsl(0, 0%, 100%);">
+            </div>
+                
+        {% endfor %}
+            <hr>    
+
+        <h2>Viewers whose emails end with "@gmail.com"</h2>
+        {% for emi in email_ends %}
+            <div>
+                <p>Name: {{ emi.name }}</p>
+                <p>Surname: {{ emi.surname }}</p>
+                <p>Email: {{ emi.email }}</p>
+                <hr style="width: 30%; height: 2px; background-color: hsl(0, 0%, 100%);">
+            </div>
+        {% endfor %}
+            <hr>
+
+        <h2>Movies whose duration is more than 120 minutes</h2>
+            {% for gt in long_movies %}
+            <div>
+                <p>Title: {{ gt.title }}</p>
+                <p>Duration: {{ gt.duration_minutes }}</p>
+                <hr style="width: 30%; height: 2px; background-color: hsl(0, 0%, 100%);">
+            </div>
+            {% endfor %}
+                <hr>
+        
+        <h2>Movies that viewers rated with 8 stars or more</h2>
+        {% for gte in high_score_reviews %}
+            <div>
+                <p>Movie: {{ gte.movie }}</p>
+                <p>Viewer: {{ gte.viewer }}</p>
+                <p>Rating: {{ gte.score }} stars</p>
+                <hr style="width: 30%; height: 2px; background-color: hsl(0, 0%, 100%);">
+            </div>
+        {% endfor %}
+            <hr>
+
+        <h2>Movies rated with less than 5 stars</h2>
+        {% for lt in low_rating_movies %}
+            <div>
+                <p>Title: {{ lt.title }}</p>
+                <p>Rating: {{ lt.rating }}</p>
+            </div>
+        {% endfor %}
+            <hr>
+
+        <h2>Viewers under the age of 18</h2>
+        {% for lte in young_viewers %}
+            <div>
+                <p>Name: {{ lte.name }}</p>
+                <p>Age: {{ lte.age }}</p>
+            </div>
+        {% endfor %}
+            <hr>
+
+        <h2>Movies lasting from 90 to 150 minutes</h2>
+        {% for range in medium_length_movies %}
+            <div>
+                <p>Title: {{ range.title }}</p>
+                <p>Duration: {{ range.duration_minutes }}</p>
+                <hr style="width: 30%; height: 2px; background-color: hsl(0, 0%, 100%);">
+            </div>
+        {% endfor %}
+            <hr>
+
+        <h2>Movies with IDs 1, 4 and 6</h2>
+        {% for in in movies_in_list %}
+            <div>
+                <p>Title: {{ in.title }}</p>
+                <hr style="width: 30%; height: 2px; background-color: hsl(0, 0%, 100%);">
+            </div>
+        {% endfor %}
+            <hr>
+
+        <h2>Movies that someone anonymously rated</h2>
+        {% for isnull in reviews_without_viewer %}
+            <div>
+                <p>Title: {{ isnull.movie }}</p>
+                <p>Rating: {{ isnull.score }}</p>
+                <hr style="width: 30%; height: 2px; background-color: hsl(0, 0%, 100%);">
+            </div>
+        {% endfor %}
+            <hr>
+    </div>
+    {% endblock %}
+</body>
+</html>
